@@ -55,7 +55,7 @@ services:
       POSTGRES_USER: eventy
       POSTGRES_PASSWORD: eventy123
       POSTGRES_HOST: database
-      TEST_JWT_SECRET_KEY: abc
+      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
 
 volumes:
   database_data:
