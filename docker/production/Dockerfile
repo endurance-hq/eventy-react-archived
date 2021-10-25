@@ -17,11 +17,10 @@ RUN apk add --update --virtual \
   && rm -rf /var/cache/apk/*
 
 RUN mkdir -p /app
+COPY . /app
 
-COPY ./docker/development/start.sh /usr/local/bin/dev-entrypoint.sh
-COPY ./docker/test/start.sh /usr/local/bin/test-entrypoint.sh
-RUN chmod +x /usr/local/bin/dev-entrypoint.sh \
-  && chmod +x /usr/local/bin/test-entrypoint.sh
+COPY ./docker/production/start.sh /usr/local/bin/production-entrypoint.sh
+RUN chmod +x /usr/local/bin/production-entrypoint.sh
 
 RUN gem install bundler -v=$BUNDLE_VERSION \
   && rm -rf $GEM_HOME/cache/*

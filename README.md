@@ -12,6 +12,11 @@ Docker instructions
   docker-compose build
 `
 
+- Start eventy application in production mode by running the command
+`ruby
+  docker-compose up eventy_prod
+`
+
 - Start eventy application in development mode by running the command
 `ruby
   docker-compose up eventy_app
@@ -25,6 +30,15 @@ Docker instructions
 - Running the below command starts the eventy application in development and also starts the rspec tests
 `ruby
   docker-compose up
+`
+
+- Use the below command to run rails migration, generators, etc
+`ruby
+  docker-compose run --rm <service-name> <rails command>
+`
+Example:
+`ruby
+  docker-compose run --rm eventy_app rake db:create
 `
 
 Note:
