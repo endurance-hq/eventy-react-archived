@@ -50,6 +50,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "${{ steps.nvm.outputs.NVMRC }}"
+      
+      - name: Install yarn
+        run: npm install -g yarn
 
       # FIXME: Yarn cache not working
       # - name: "Read Yarn cache directory path"
