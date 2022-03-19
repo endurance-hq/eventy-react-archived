@@ -1,0 +1,15 @@
+default: &default
+  adapter: postgresql
+  host: 127.0.0.1
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 10 } %>
+
+development:
+  <<: *default
+  database: eventy_development
+
+test:
+  <<: *default
+  database: <%= ENV['TEST_DB'] %>
+  username: <%= ENV['TEST_USER'] %>
+  password: <%= ENV['TEST_PASSWORD'] %>

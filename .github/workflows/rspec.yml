@@ -11,6 +11,8 @@ jobs:
   rspec-test:
     name: RSpec
     runs-on: ubuntu-latest
+    container:
+      image: ruby:3.0.0
     services:
       postgres:
         image: postgres:latest
@@ -21,19 +23,17 @@ jobs:
           POSTGRES_PASSWORD: ${{ env.TEST_PASSWORD }}
     steps:
       - uses: actions/checkout@v2
-      - uses: ruby/setup-ruby@v1
+      - name: Gem cache
+        id: cache-bundle
+        uses: actions/cache@v1
         with:
-          bundler-cache: true
-      - name: Install postgres client
-        run: sudo apt-get install libpq-dev
-      - name: Install dependencies
+          path: vendor/bundle
+          key: bundle-${{ hashFiles('**/Gemfile.lock') }}
+      - name: Copy DB Config
+        run: cp config/database.yml.ci config/database.yml
+      - name: Setup DB
         run: |
-          gem install bundler
-          bundler install
-      - name: Create database
-        run: |
-          bundler exec rails db:create RAILS_ENV=test
-          bundler exec rails db:migrate RAILS_ENV=test
+          bin/rails db:create db:schema:load RAILS_ENV=test
       - name: Run tests
         run: bundler exec rspec
       - name: Upload coverage results

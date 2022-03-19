@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: localhost
+  pool: 5
+  password:
+
+development:
+  <<: *default
+  database: <%= "eventy_development" %>
+
+test:
+  <<: *default
+  database: <%= "eventy_test" %>
+
+production:
+  <<: *default
+  database: <%= "eventy_production" %>
