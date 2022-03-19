@@ -63,5 +63,6 @@ end
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 
 gem "dotenv-rails", groups: [:development, :test]
-# for javascript bundling
+
 gem "jsbundling-rails", "~> 1.0"
+gem "cssbundling-rails", "~> 1.1"
