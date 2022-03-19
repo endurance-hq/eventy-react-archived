@@ -14,7 +14,7 @@ RSpec.describe Event, type: :model do
   context "event time validations" do
     let(:event) { create(:event) }
     it "validate that start time before end_time" do
-      event.end_time = Date.today
+      event.end_time = Time.zone.today
       expect(event).to_not be_valid
     end
   end
