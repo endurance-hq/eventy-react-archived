@@ -77,9 +77,7 @@ jobs:
           POSTGRES_HOST: postgres
         run: |
           bin/rails db:create db:schema:load
-
-      - name: Run tests
-        run: bin/rails spec
+          bin/rails spec
 
       - name: Upload coverage results
         uses: actions/upload-artifact@master
