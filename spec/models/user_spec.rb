@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe User, type: :model do
-  let(:user) { create(:user, first_name: 'alice', middle_name: 'bob', last_name: 'charlie') }
+  let(:user) { create(:user, first_name: "alice", middle_name: "bob", last_name: "charlie") }
 
   it { should validate_presence_of(:user_name) }
   it { should validate_uniqueness_of(:user_name) }
@@ -13,13 +13,13 @@ RSpec.describe User, type: :model do
   it { should validate_presence_of(:first_name) }
   it { should validate_presence_of(:last_name) }
   it { should validate_presence_of(:password) }
-  it { should have_many(:events).with_foreign_key('host_id') }
+  it { should have_many(:events).with_foreign_key("host_id") }
   it { should have_many(:user_events) }
   it { should have_many(:circles) }
 
-  context 'given full name' do
-    it 'should return alice bob charlie' do
-      expect(user.full_name).to eq('alice bob charlie')
+  context "given full name" do
+    it "should return alice bob charlie" do
+      expect(user.full_name).to eq("alice bob charlie")
     end
   end
 end

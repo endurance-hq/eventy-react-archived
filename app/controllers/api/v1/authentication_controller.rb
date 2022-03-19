@@ -13,7 +13,7 @@ module Api
         raise Errors::AuthenticateError unless user.authenticate(params.require(:password))
 
         render json: UserSerializer.render_as_json(user, root: :user, view: :with_auth_token),
-               status: :created
+          status: :created
       end
     end
   end

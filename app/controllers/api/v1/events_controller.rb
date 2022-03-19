@@ -13,7 +13,7 @@ module Api
         event = Event.new(event_params)
         if event.save
           render json: EventSerializer.render_as_json(event, root: :event, view: :with_all_associations),
-                 status: :created
+            status: :created
         else
           render json: { errors: event.errors.messages }, status: :unprocessable_entity
         end
@@ -21,21 +21,21 @@ module Api
 
       def edit
         render json: EventSerializer.render_as_json(@event, root: :event, view: :with_all_associations),
-               status: :ok
+          status: :ok
       end
 
       def show
         render json: EventSerializer.render_as_json(@event, root: :event, view: :with_all_associations),
-               status: :ok
+          status: :ok
       end
 
       def update
         if @event.update(event_params)
           render json: EventSerializer.render_as_json(@event, root: :event, view: :with_all_associations),
-                 status: :ok
+            status: :ok
         else
           render json: { errors: @event.errors.messages },
-                 status: :unprocessable_entity
+            status: :unprocessable_entity
         end
       end
 
@@ -47,26 +47,27 @@ module Api
           render_all_events(parameters)
         else
           render json: { errors: :user_event_not_found },
-                 status: :not_found
+            status: :not_found
         end
       end
 
       private
 
-      def event_params
-        params.require(:event).permit(:title, :description, :start_time, :end_time, :host_id,
-          user_events_attributes: [:id, :_destroy, :user_id, :event_role])
-      end
+        def event_params
+          params.require(:event).permit(
+            :title, :description, :start_time, :end_time, :host_id,
+            user_events_attributes: [:id, :_destroy, :user_id, :event_role])
+        end
 
-      def fetch_event
-        @event = Event.find(params[:id])
-      end
+        def fetch_event
+          @event = Event.find(params[:id])
+        end
 
-      def render_all_events(parameters)
-        events = EventQuery.call(parameters)
-        render json: EventSerializer.render_as_json(events, root: :event, view: :with_all_associations),
-               status: :ok
-      end
+        def render_all_events(parameters)
+          events = EventQuery.call(parameters)
+          render json: EventSerializer.render_as_json(events, root: :event, view: :with_all_associations),
+            status: :ok
+        end
     end
   end
 end
