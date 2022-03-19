@@ -16,47 +16,47 @@ module Api
 
       private
 
-      def authenticate
-        user = Jwt::Authenticator.call(request.headers)
+        def authenticate
+          user = Jwt::Authenticator.call(request.headers)
 
-        set_current_attributes(user)
-      end
+          set_current_attributes(user)
+        end
 
-      def set_current_attributes(user)
-        Current.user = user
-        # FIXME: check for better approach to handle multi tenancy
-        Current.circle = Circle.for_user(user.id).where(id: request.headers['CircleId']).first
-      end
+        def set_current_attributes(user)
+          Current.user = user
+          # FIXME: check for better approach to handle multi tenancy
+          Current.circle = Circle.for_user(user.id).where(id: request.headers["CircleId"]).first
+        end
 
-      def record_not_found(error)
-        render json: { error: error.message }, status: :not_found
-      end
+        def record_not_found(error)
+          render json: { error: error.message }, status: :not_found
+        end
 
-      def parameter_missing(error)
-        render json: { error: error.message }, status: :unprocessable_entity
-      end
+        def parameter_missing(error)
+          render json: { error: error.message }, status: :unprocessable_entity
+        end
 
-      def handle_unauthenticated
-        render json: { error: :incorrect_username_or_password }, status: :unauthorized
-      end
+        def handle_unauthenticated
+          render json: { error: :incorrect_username_or_password }, status: :unauthorized
+        end
 
-      def handle_unauthorized
-        render json: { error: :please_login_to_continue }, status: :unauthorized
-      end
+        def handle_unauthorized
+          render json: { error: :please_login_to_continue }, status: :unauthorized
+        end
 
-      def handle_exception(error)
-        render json: { error: error.message }, status: :internal_server_error
-      end
+        def handle_exception(error)
+          render json: { error: error.message }, status: :internal_server_error
+        end
 
-      # Status code 422
-      def handle_missing_token
-        render json: { error: :missing_token }, status: :unprocessable_entity
-      end
+        # Status code 422
+        def handle_missing_token
+          render json: { error: :missing_token }, status: :unprocessable_entity
+        end
 
-      # Status code 422
-      def handle_invalid_token
-        render json: { error: :invalid_token }, status: :unprocessable_entity
-      end
+        # Status code 422
+        def handle_invalid_token
+          render json: { error: :invalid_token }, status: :unprocessable_entity
+        end
     end
   end
 end

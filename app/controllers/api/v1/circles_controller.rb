@@ -23,7 +23,7 @@ module Api
 
         if circle.save
           render json: CircleSerializer.render_as_json(circle, root: :circle, view: :with_head_and_members),
-                 status: :created
+            status: :created
         else
           render json: { errors: circle.errors }, status: :unprocessable_entity
         end
@@ -33,7 +33,7 @@ module Api
       def update
         if @circle.update(circle_params)
           render json: CircleSerializer.render_as_json(@circle, root: :circle, view: :with_head_and_members),
-                 status: :ok
+            status: :ok
         else
           render json: { errors: @circle.errors }, status: :unprocessable_entity
         end
@@ -46,15 +46,15 @@ module Api
 
       private
 
-      # Use callbacks to share common setup or constraints between actions.
-      def set_circle
-        @circle = Circle.find(params[:id])
-      end
+        # Use callbacks to share common setup or constraints between actions.
+        def set_circle
+          @circle = Circle.find(params[:id])
+        end
 
-      # Only allow a list of trusted parameters through.
-      def circle_params
-        params.require(:circle).permit(:name, :description, :member_ids)
-      end
+        # Only allow a list of trusted parameters through.
+        def circle_params
+          params.require(:circle).permit(:name, :description, :member_ids)
+        end
     end
   end
 end

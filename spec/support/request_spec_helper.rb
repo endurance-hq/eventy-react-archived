@@ -6,7 +6,7 @@ module RequestSpecHelper
   end
 
   def auth_response_without_token
-    json['user'].except('auth_token')
+    json["user"].except("auth_token")
   end
 
   def token_generator(user)
@@ -15,8 +15,8 @@ module RequestSpecHelper
 
   def valid_headers(user = FactoryBot.create(:user))
     {
-      'Authorization' => "Bearer #{token_generator(user)}",
-      'Content-Type' => 'application/json'
+      "Authorization" => "Bearer #{token_generator(user)}",
+      "Content-Type" => "application/json"
     }
   end
 end

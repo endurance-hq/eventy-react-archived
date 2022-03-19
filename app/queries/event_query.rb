@@ -14,14 +14,14 @@ class EventQuery < BaseService
 
   private
 
-  attr_reader :user, :params
-  attr_accessor :events
+    attr_reader :user, :params
+    attr_accessor :events
 
-  def all_events
-    @events = Event.order_by_user_priority(user)
-  end
+    def all_events
+      @events = Event.order_by_user_priority(user)
+    end
 
-  def filter_events
-    @events = events.active
-  end
+    def filter_events
+      @events = events.active
+    end
 end

@@ -10,6 +10,6 @@ class CreateCircles < ActiveRecord::Migration[6.1]
       t.timestamps
     end
 
-    add_index :circles, :member_ids, using: 'gin'
+    add_index :circles, :member_ids, using: "gin"
   end
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Event < CircleScopedRecord
-  belongs_to :host, class_name: 'User', foreign_key: 'host_id'
+  belongs_to :host, class_name: "User", foreign_key: "host_id"
 
   has_many :user_events, dependent: :delete_all
   has_many :recipients, through: :user_events, source: :user
@@ -18,14 +18,14 @@ class Event < CircleScopedRecord
   accepts_nested_attributes_for :user_events, allow_destroy: true
 
   scope :for_user, lambda { |user_id| joins(:user_events).where(user_events: { user_id: user_id }) }
-  scope :active, -> { where('start_time >= ?', Date.today) }
+  scope :active, -> { where("start_time >= ?", Date.today) }
   scope :order_by_user_priority, ->(user_id) { joins(:user_events)
-                                        .where(user_events: { user_id: user_id })
-                                        .order('priority ASC NULLS LAST, start_time ASC') }
+    .where(user_events: { user_id: user_id })
+    .order("priority ASC NULLS LAST, start_time ASC") }
 
   private
 
-  def add_host_to_the_user_events
-    user_events.build(user_id: host_id, event_role: 'admin')
-  end
+    def add_host_to_the_user_events
+      user_events.build(user_id: host_id, event_role: "admin")
+    end
 end
