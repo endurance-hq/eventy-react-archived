@@ -16,7 +16,7 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
-# COVERAGE=true bundle exec rails test -v
+# COVERAGE=true bundle exec rails spec
 def enable_test_coverage
   require "simplecov"
   SimpleCov.start do

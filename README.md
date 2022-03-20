@@ -75,7 +75,7 @@ Note:
 
 Run test using below command and see the percent coverage
 ```bash
-COVERAGE=true bundle exec rails test -v  
+COVERAGE=true bundle exec rails spec
 ```
 
 After running your tests, open `coverage/index.html` in the browser of your choice. For example, in a Mac Terminal, run the following command from your application's root directory:
