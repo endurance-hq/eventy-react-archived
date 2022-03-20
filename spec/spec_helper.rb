@@ -15,18 +15,23 @@
 # it.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
-require 'simplecov'
 
-SimpleCov.start do
-  add_filter 'spec/'
-  add_group 'Models', 'app/models'
-  add_group 'Mailers', 'app/mailers'
-  add_group 'Controllers', 'app/controllers'
-  add_group 'Uploaders', 'app/uploaders'
-  add_group 'Helpers', 'app/helpers'
-  add_group 'Workers', 'app/workers'
-  add_group 'Services', 'app/services'
+# COVERAGE=true bundle exec rails test -v
+def enable_test_coverage
+  require "simplecov"
+  SimpleCov.start do
+    add_filter "spec/"
+    add_group "Models", "app/models"
+    add_group "Mailers", "app/mailers"
+    add_group "Controllers", "app/controllers"
+    add_group "Uploaders", "app/uploaders"
+    add_group "Helpers", "app/helpers"
+    add_group "Workers", "app/workers"
+    add_group "Services", "app/services"
+  end
 end
+
+enable_test_coverage if ENV["COVERAGE"]
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
