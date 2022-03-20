@@ -7,13 +7,8 @@ module Api
 
       def create
         user = User.new(user_params)
-
-        if user.save
-          render json: UserSerializer.render_as_json(user, root: :user, view: :with_auth_token),
-            status: :created
-        else
-          render json: { error: user.errors.full_messages.join(",") }, status: :unprocessable_entity
-        end
+        user.save!
+        respond_with_json(UserSerializer.render_as_json(user, root: :user, view: :with_auth_token), :created)
       end
 
       private

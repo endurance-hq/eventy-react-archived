@@ -3,3 +3,6 @@ en:
   please_login_to_continue: "Please login to continue."
   missing_token: "Token is Missing."
   invalid_token: "Token is invalid."
+  succesfully_created: "%{entity} Successfully Created."
+  succesfully_updated: "%{entity} Successfully Updated."
+  succesfully_deleted: "%{entity} Successfully Deleted."
