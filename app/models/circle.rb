@@ -9,8 +9,16 @@ class Circle < ApplicationRecord
   validates :description, presence: true
   validates :head_id, presence: true
 
-  scope :for_member, -> (member_id) { where("'?' = ANY(member_ids)", member_id) }
   scope :for_user, -> (user_id = Current.user&.id) { where(head_id: user_id).or(for_member(user_id)) }
+
+  def self.for_member(member_id)
+    where(
+      Arel::Nodes::Equality.new(
+        Arel::Nodes.build_quoted(member_id.to_s),
+        Arel::Nodes::NamedFunction.new("ANY", [arel_table[:member_ids]])
+      )
+    )
+  end
 
   def members
     @_members ||= User.where(id: member_ids)

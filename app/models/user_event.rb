@@ -13,7 +13,7 @@ class UserEvent < ApplicationRecord
   scope :participants, -> { where(event_role: "participant") }
   scope :co_hosts, -> { where(event_role: "co_host") }
   scope :for_user, ->(user_id) { where(user_id: user_id) }
-  scope :order_by_priority, -> { order("priority DESC NULLS LAST") }
+  scope :order_by_priority, -> { order(arel_table[:priority].desc.nulls_last) }
 
   before_update :reorder_priorities, if: :reorderable?
   before_destroy :remove_priority, if: :has_priority?
