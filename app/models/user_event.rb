@@ -49,7 +49,8 @@ class UserEvent < ApplicationRecord
     end
 
     def reorder_priorities
-      reorderable_events = associated_user_events.order_by_priority.where(["priority > ?", priority_was.to_i])
+      priority_gt_predicate = UserEvent.arel_table[:priority].gt(priority_was.to_i)
+      reorderable_events = associated_user_events.order_by_priority.where(priority_gt_predicate)
       reorderable_events.update_all("priority = priority - 1")
     end
 end
