@@ -12,6 +12,7 @@ module ApiRescuable
     rescue_from Errors::Unauthorized, with: :handle_unauthorized
     rescue_from Errors::Jwt::MissingToken, with: :handle_missing_token
     rescue_from Errors::Jwt::InvalidToken, with: :handle_invalid_token
+    rescue_from JWT::ExpiredSignature, with: :handle_expired_signature
   end
 
   private
