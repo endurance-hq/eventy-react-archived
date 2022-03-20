@@ -72,4 +72,11 @@ RSpec.describe UserEvent, type: :model do
       expect(user_event3.priority).to eql 1
     end
   end
+
+  context "order by priority" do
+    it "test order by priority builds expected query" do
+      order_by_priority_sql = UserEvent.order_by_priority.to_sql
+      expect(order_by_priority_sql).to include(%{ORDER BY "user_events"."priority" DESC NULLS LAST})
+    end
+  end
 end
