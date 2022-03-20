@@ -3,7 +3,7 @@
 module Api
   module V1
     class EventsController < ApiController
-      before_action :fetch_event, only: [:edit, :show, :update]
+      before_action :load_event, only: %i[edit show update]
 
       def index
         render_all_events(params)
@@ -59,7 +59,7 @@ module Api
             user_events_attributes: [:id, :_destroy, :user_id, :event_role])
         end
 
-        def fetch_event
+        def load_event
           @event = Event.includes(user_events: :user).find(params[:id])
         end
 
