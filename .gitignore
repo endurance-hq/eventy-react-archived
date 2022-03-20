@@ -43,3 +43,8 @@ yarn-debug.log*
 
 # Ignore database.yml file
 /config/database.yml
+
+# Ignore Test coverage data
+coverage
+
+*.DS_Store
