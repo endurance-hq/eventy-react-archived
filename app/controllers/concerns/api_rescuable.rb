@@ -29,7 +29,7 @@ module ApiRescuable
 
     def handle_api_error(exception)
       log_error(exception)
-      respond_with_error status: :unprocessable_entity, message: error.message
+      respond_with_error status: :unprocessable_entity, message: exception.message
     end
 
     def handle_unauthenticated(exception)
