@@ -18,4 +18,18 @@ RSpec.describe Event, type: :model do
       expect(event).to_not be_valid
     end
   end
+
+  context "arel queries" do
+    it "test active scope builds query as expected" do
+      active_sql = Event.active.to_sql
+      expect(active_sql).to include(%{"events"."start_time" >= '})
+    end
+
+    it "test order by priority works as expected" do
+      order_by_user_priority_sql = Event.order_by_user_priority(1).to_sql
+      expect(order_by_user_priority_sql).to include(
+        %{ORDER BY "user_events"."priority" ASC NULLS FIRST, "events"."start_time" ASC}
+      )
+    end
+  end
 end
