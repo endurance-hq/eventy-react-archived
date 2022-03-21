@@ -5,6 +5,7 @@ en:
     please_login_to_continue: "Please login to continue."
     missing_token: "Token is Missing."
     invalid_token: "Token is invalid."
+    record_not_found: "Sorry, Couldn't find %{model_name}"
   succesfully_created: "%{entity} Successfully Created."
   succesfully_updated: "%{entity} Successfully Updated."
   succesfully_deleted: "%{entity} Successfully Deleted."

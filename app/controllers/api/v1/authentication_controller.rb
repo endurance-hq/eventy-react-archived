@@ -6,9 +6,7 @@ module Api
       skip_before_action :authenticate, only: :create
 
       def create
-        user = User.find_by_user_name(params.require(:user_name))
-
-        raise ActiveRecord::RecordNotFound, :user_not_found unless user
+        user = User.find_by_user_name!(params.require(:user_name))
 
         raise Errors::AuthenticateError unless user.authenticate(params.require(:password))
 
