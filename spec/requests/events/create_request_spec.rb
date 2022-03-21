@@ -26,7 +26,7 @@ RSpec.describe "Events Create", type: :request do
           post "/api/v1/events", params: valid_params.to_json, headers: valid_headers
         end
         it "should create an event" do
-          expect(json.dig("event", "title")).to eq("new_event")
+          expect(json.dig("notice", "event", "title")).to eq("new_event")
         end
 
         it "should return status code" do
@@ -34,7 +34,7 @@ RSpec.describe "Events Create", type: :request do
         end
 
         it "should create one user_event for host" do
-          expect(json.dig("event", "user_events").length).to eql 1
+          expect(json.dig("notice", "event", "user_events").length).to eql 1
         end
 
         it "should have user event with user_id same as host" do
@@ -56,11 +56,11 @@ RSpec.describe "Events Create", type: :request do
         end
 
         it "should return user_event response" do
-          expect(json["event"]["user_events"]).to be_present
+          expect(json["notice"]["event"]["user_events"]).to be_present
         end
 
         it "should create 4 user_events" do
-          expect(json["event"]["user_events"].length).to eql 4
+          expect(json["notice"]["event"]["user_events"].length).to eql 4
         end
 
         it "should create 2 user_events with event role as participant" do

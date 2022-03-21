@@ -26,7 +26,7 @@ RSpec.describe "Event Update", type: :request do
       end
 
       it "should have the title updated" do
-        expect(json["event"]["title"]).to eq("updated")
+        expect(json["notice"]["event"]["title"]).to eq("updated")
       end
 
       it "should have one admin" do
