@@ -12,20 +12,21 @@ module Api
       def create
         event = Event.new(event_params)
         event.save!
-        respond_with_json(EventSerializer.render_as_json(event, root: :event, view: :with_all_associations), :created)
+        respond_with_success message: EventSerializer.render_as_json(event, root: :event, view: :with_all_associations),
+          status: :created
       end
 
       def edit
-        respond_with_json(EventSerializer.render_as_json(@event, root: :event, view: :with_all_associations))
+        respond_with_json json: EventSerializer.render_as_json(@event, root: :event, view: :with_all_associations)
       end
 
       def show
-        respond_with_json(EventSerializer.render_as_json(@event, root: :event, view: :with_all_associations))
+        respond_with_json json: EventSerializer.render_as_json(@event, root: :event, view: :with_all_associations)
       end
 
       def update
         @event.update!(event_params)
-        respond_with_json(EventSerializer.render_as_json(@event, root: :event, view: :with_all_associations))
+        respond_with_success message: EventSerializer.render_as_json(@event, root: :event, view: :with_all_associations)
       end
 
       def toggle_pin
@@ -49,7 +50,7 @@ module Api
 
         def render_all_events(parameters)
           events = EventQuery.call(parameters)
-          render json: EventSerializer.render_as_json(events, root: :event, view: :with_all_associations),
+          respond_with_json json: EventSerializer.render_as_json(events, root: :event, view: :with_all_associations),
             status: :ok
         end
     end

@@ -6,7 +6,22 @@ module RequestSpecHelper
   end
 
   def auth_response_without_token
-    json["user"].except("auth_token")
+    auth_response.except("auth_token")
+  end
+
+  def auth_response
+    return json.dig("notice", "user") if notice?
+    return json["error"] if error?
+
+    json["user"] || {}
+  end
+
+  def notice?
+    json["notice"].present?
+  end
+
+  def error?
+    json["error"].present?
   end
 
   def token_generator(user)

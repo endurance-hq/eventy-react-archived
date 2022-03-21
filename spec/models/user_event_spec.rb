@@ -79,4 +79,11 @@ RSpec.describe UserEvent, type: :model do
       expect(order_by_priority_sql).to include(%{ORDER BY "user_events"."priority" DESC NULLS LAST})
     end
   end
+
+  context "arel queries" do
+    it "test priority arel query builds as expected" do
+      priority_sql = UserEvent.priority_greater_than(5).to_sql
+      expect(priority_sql).to include(%{"user_events"."priority" > 5})
+    end
+  end
 end

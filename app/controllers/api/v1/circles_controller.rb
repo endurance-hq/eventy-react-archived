@@ -9,12 +9,12 @@ module Api
       def index
         circles = Circle.for_user
 
-        respond_with_json(CircleSerializer.render_as_json(circles, root: :circles, view: :with_head_and_members))
+        respond_with_json json: CircleSerializer.render_as_json(circles, root: :circles, view: :with_head_and_members)
       end
 
       # GET /circles/1
       def show
-        respond_with_json(CircleSerializer.render_as_json(@circle, root: :circle, view: :with_head_and_members))
+        respond_with_json json: CircleSerializer.render_as_json(@circle, root: :circle, view: :with_head_and_members)
       end
 
       # POST /circles
@@ -22,21 +22,23 @@ module Api
         circle = Circle.new(circle_params)
 
         circle.save!
-        respond_with_json(
+        respond_with_success message:
           CircleSerializer.render_as_json(circle, root: :circle, view: :with_head_and_members),
-          :created)
+          status: :created
       end
 
       # PATCH/PUT /circles/1
       def update
         @circle.update!(circle_params)
-        respond_with_json(CircleSerializer.render_as_json(@circle, root: :circle, view: :with_head_and_members))
+        respond_with_success message: CircleSerializer.render_as_json(
+          @circle, root: :circle,
+          view: :with_head_and_members)
       end
 
       # DELETE /circles/1
       def destroy
         @circle.destroy!
-        respond_with_success(t("succesfully_deleted", entity: "Circle"))
+        respond_with_success message: t("succesfully_deleted", entity: "Circle")
       end
 
       private

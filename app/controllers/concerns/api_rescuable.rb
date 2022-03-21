@@ -6,8 +6,7 @@ module ApiRescuable
   included do
     rescue_from Exception, with: :handle_exception
     rescue_from ActiveRecord::RecordNotFound, with: :handle_record_not_found
-    rescue_from ActiveRecord::RecordInvalid, with: :handle_validation_error
-    rescue_from ActiveRecord::RecordNotUnique, with: :handle_record_not_unique
+    rescue_from ActiveRecord::RecordInvalid, ActiveRecord::RecordNotUnique, with: :handle_record_error
     rescue_from ActionController::ParameterMissing, with: :handle_api_error
     rescue_from Errors::AuthenticateError, with: :handle_unauthenticated
     rescue_from Errors::Unauthorized, with: :handle_unauthorized
@@ -18,55 +17,50 @@ module ApiRescuable
 
   private
 
-    def handle_validation_error(exception)
+    def handle_record_error
       log_error(exception)
-      respond_with_error(exception)
+      respond_with_error status: :unprocessable_entity, message: exception.record.error_sentence
     end
 
     def handle_record_not_found(exception)
       log_error(exception)
-      respond_with_error(exception.message, :not_found)
-    end
-
-    def handle_record_not_unique(exception)
-      log_error(exception)
-      respond_with_error(exception)
+      respond_with_error status: :not_found, message: exception.message
     end
 
     def handle_api_error(exception)
       log_error(exception)
-      respond_with_error(exception, :internal_server_error)
+      respond_with_error status: :unprocessable_entity, message: error.message
     end
 
     def handle_unauthenticated(exception)
       log_error(exception)
-      respond_with_error(t("incorrect_username_or_password"), :unauthorized)
+      respond_with_error status: :unauthorized, message: t("error.incorrect_username_or_password")
     end
 
     def handle_unauthorized(exception)
       log_error(exception)
-      respond_with_error(t("please_login_to_continue"), :unauthorized)
+      respond_with_error status: :unauthorized, message: t("error.please_login_to_continue")
     end
 
     def handle_missing_token(exception)
       log_error(exception)
-      respond_with_error(t("missing_token"), :unprocessable_entity)
+      respond_with_error status: :unprocessable_entity, message: t("error.missing_token")
     end
 
     def handle_invalid_token(exception)
       log_error(exception)
-      respond_with_error(t("invalid_token"), :unprocessable_entity)
+      respond_with_error status: :unprocessable_entity, message: t("error.invalid_token")
     end
 
     def handle_expired_signature(exception)
       log_error(exception)
       Current.user = nil
-      respond_with_error(:expired_signature, :unprocessable_entity)
+      respond_with_error status: :unprocessable_entity, message: :expired_signature
     end
 
     def handle_exception(exception)
       log_error(exception)
-      respond_with_error(:something_went_wrong)
+      respond_with_error message: t("error.something_went_wrong")
     end
 
     def log_error(error)

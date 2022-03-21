@@ -25,7 +25,7 @@ RSpec.describe "Authentication", type: :request do
     it "returns error when password is incorrect" do
       post "/api/v1/login", params: { user_name: user.user_name, password: "password1" }
       expect(response).to have_http_status(:unauthorized)
-      expect(json).to eq({ "error" => t("incorrect_username_or_password") })
+      expect(json).to eq({ "error" => t("error.incorrect_username_or_password") })
     end
 
     context "when request is valid" do
