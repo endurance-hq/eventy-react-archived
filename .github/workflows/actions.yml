@@ -3,13 +3,17 @@ env:
   TEST_DB: eventy_test
   TEST_USER: postgres
   TEST_PASSWORD: postgres
+  RAILS_ENV: test
+  POSTGRES_HOST: postgres
   RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
 
-name: Rails Specs
-on: [push, pull_request]
+name: Linters & Rspec
+
+on: [pull_request]
+
 jobs:
-  rspec-test:
-    name: RSpec
+  eventy-ci:
+    name: Eventy-CI
     runs-on: ubuntu-latest
     container:
       image: ruby:3.0.0
@@ -51,7 +55,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "${{ steps.nvm.outputs.NVMRC }}"
-      
+
       - name: Install yarn
         run: npm install -g yarn
 
@@ -65,7 +69,7 @@ jobs:
       #   with:
       #     path: ${{ steps.yarn-cache-dir.outputs.dir }}
       #     key: yarn-${{ hashFiles('**/yarn.lock') }}
-      
+
       - name: "Yarn install"
         run: yarn install
 
@@ -73,12 +77,22 @@ jobs:
         run: cp config/database.yml.ci config/database.yml
 
       - name: Setup DB
-        env:
-          RAILS_ENV: test
-          POSTGRES_HOST: postgres
         run: |
           bin/rails db:create db:schema:load
-          bin/rails spec
+
+      - name: Run RuboCop
+        run: bundle exec rubocop --parallel
+
+      - name: Erb lint
+        run: |
+          bundle exec erblint --lint-all --format compact
+
+      - name: Eslint
+        run: |
+          - curl -s -L "https://raw.githubusercontent.com/eventy-core/eventy/master/.github/commands/run_eslint_on_modified_files.sh" | bash
+
+      - name: Run Rspec
+        run: bin/rails spec
 
       - name: Upload coverage results
         uses: actions/upload-artifact@master
