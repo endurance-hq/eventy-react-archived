@@ -67,3 +67,5 @@ gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 
 gem "cssbundling-rails", "~> 1.1"
 gem "jsbundling-rails", "~> 1.0"
+# For linting ERB files
+gem "erb_lint", require: false, git: "https://github.com/Shopify/erb-lint.git", branch: "main"
