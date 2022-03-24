@@ -1,5 +1,15 @@
 import React from "react";
 
-const App = () => <div>Hello world</div>
+import Main from "components/Main";
+import { AuthProvider } from "contexts/auth";
+import { UserProvider } from "contexts/user";
+
+const App = props => (
+  <AuthProvider>
+    <UserProvider>
+      <Main {...props} />
+    </UserProvider>
+  </AuthProvider>
+);
 
 export default App;
