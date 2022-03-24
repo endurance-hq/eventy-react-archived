@@ -3,7 +3,10 @@
       "baseUrl": "./app/javascript",
       "paths": {
           "src/*": ["src/*"],
-          "components/*": ["src/components/*"]
+          "components/*": ["src/components/*"],
+          "reducers/*": ["src/reducers/*"],
+          "contexts/*": ["src/contexts/*"],
+          "commons/*": ["src/commons/*"]
       }
   }
 }
