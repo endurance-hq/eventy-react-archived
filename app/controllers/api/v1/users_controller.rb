@@ -8,7 +8,7 @@ module Api
       def create
         user = User.new(user_params)
         user.save!
-        respond_with_success message: UserSerializer.render_as_json(user, root: :user, view: :with_auth_token),
+        respond_with_json json: UserSerializer.render_as_json(user, root: :user, view: :with_auth_token),
           status: :created
       end
 

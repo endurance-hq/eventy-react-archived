@@ -22,17 +22,13 @@ module Api
         circle = Circle.new(circle_params)
 
         circle.save!
-        respond_with_success message:
-          CircleSerializer.render_as_json(circle, root: :circle, view: :with_head_and_members),
-          status: :created
+        respond_with_success message: t("succesfully_created", entity: "Circle"), status: :created
       end
 
       # PATCH/PUT /circles/1
       def update
         @circle.update!(circle_params)
-        respond_with_success message: CircleSerializer.render_as_json(
-          @circle, root: :circle,
-          view: :with_head_and_members)
+        respond_with_success message: t("succesfully_updated", entity: "Circle")
       end
 
       # DELETE /circles/1

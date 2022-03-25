@@ -3,7 +3,7 @@
 module Api
   module V1
     class EventsController < ApiController
-      before_action :load_event, only: %i[edit show update]
+      before_action :load_event!, only: %i[edit show update]
 
       def index
         render_all_events(params)
@@ -12,8 +12,7 @@ module Api
       def create
         event = Event.new(event_params)
         event.save!
-        respond_with_success message: EventSerializer.render_as_json(event, root: :event, view: :with_all_associations),
-          status: :created
+        respond_with_success message: t("succesfully_created", entity: "Event"), status: :created
       end
 
       def edit
@@ -26,7 +25,7 @@ module Api
 
       def update
         @event.update!(event_params)
-        respond_with_success message: EventSerializer.render_as_json(@event, root: :event, view: :with_all_associations)
+        respond_with_success message: t("succesfully_updated", entity: "Event")
       end
 
       def toggle_pin
@@ -44,7 +43,7 @@ module Api
             user_events_attributes: [:id, :_destroy, :user_id, :event_role])
         end
 
-        def load_event
+        def load_event!
           @event = Event.includes(user_events: :user).find(params[:id])
         end
 
