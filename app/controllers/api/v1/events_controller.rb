@@ -3,7 +3,7 @@
 module Api
   module V1
     class EventsController < ApiController
-      before_action :fetch_event, only: [:edit, :show, :update]
+      before_action :load_event!, only: %i[edit show update]
 
       def index
         render_all_events(params)
@@ -11,44 +11,28 @@ module Api
 
       def create
         event = Event.new(event_params)
-        if event.save
-          render json: EventSerializer.render_as_json(event, root: :event, view: :with_all_associations),
-            status: :created
-        else
-          render json: { errors: event.errors.messages }, status: :unprocessable_entity
-        end
+        event.save!
+        respond_with_success message: t("succesfully_created", entity: "Event"), status: :created
       end
 
       def edit
-        render json: EventSerializer.render_as_json(@event, root: :event, view: :with_all_associations),
-          status: :ok
+        respond_with_json json: EventSerializer.render_as_json(@event, root: :event, view: :with_all_associations)
       end
 
       def show
-        render json: EventSerializer.render_as_json(@event, root: :event, view: :with_all_associations),
-          status: :ok
+        respond_with_json json: EventSerializer.render_as_json(@event, root: :event, view: :with_all_associations)
       end
 
       def update
-        if @event.update(event_params)
-          render json: EventSerializer.render_as_json(@event, root: :event, view: :with_all_associations),
-            status: :ok
-        else
-          render json: { errors: @event.errors.messages },
-            status: :unprocessable_entity
-        end
+        @event.update!(event_params)
+        respond_with_success message: t("succesfully_updated", entity: "Event")
       end
 
       def toggle_pin
         user_event = UserEvent.find(params[:id])
-        if user_event.present?
-          user_event.toggle_priority
-          parameters = { id: user_event.id }
-          render_all_events(parameters)
-        else
-          render json: { errors: :user_event_not_found },
-            status: :not_found
-        end
+        user_event.toggle_priority
+        parameters = { id: user_event.id }
+        render_all_events(parameters)
       end
 
       private
@@ -59,13 +43,13 @@ module Api
             user_events_attributes: [:id, :_destroy, :user_id, :event_role])
         end
 
-        def fetch_event
+        def load_event!
           @event = Event.includes(user_events: :user).find(params[:id])
         end
 
         def render_all_events(parameters)
           events = EventQuery.call(parameters)
-          render json: EventSerializer.render_as_json(events, root: :event, view: :with_all_associations),
+          respond_with_json json: EventSerializer.render_as_json(events, root: :event, view: :with_all_associations),
             status: :ok
         end
     end

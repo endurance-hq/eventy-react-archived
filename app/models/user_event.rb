@@ -14,6 +14,7 @@ class UserEvent < ApplicationRecord
   scope :co_hosts, -> { where(event_role: "co_host") }
   scope :for_user, ->(user_id) { where(user_id: user_id) }
   scope :order_by_priority, -> { order(arel_table[:priority].desc.nulls_last) }
+  scope :priority_greater_than, ->(priority) { where(arel_table[:priority].gt(priority)) }
 
   before_update :reorder_priorities, if: :reorderable?
   before_destroy :remove_priority, if: :has_priority?
@@ -49,7 +50,7 @@ class UserEvent < ApplicationRecord
     end
 
     def reorder_priorities
-      reorderable_events = associated_user_events.order_by_priority.where(["priority > ?", priority_was.to_i])
+      reorderable_events = associated_user_events.order_by_priority.priority_greater_than(priority_was.to_i)
       reorderable_events.update_all("priority = priority - 1")
     end
 end

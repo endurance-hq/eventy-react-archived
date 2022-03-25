@@ -10,7 +10,10 @@ module EventSpecHelper
   end
 
   def fetch_by_event_role(response_hash, role)
-    response_hash.dig("event", "user_events").select { |user_event|
+    response = response_hash["notice"] ? response_hash.dig(
+      "notice", "event",
+      "user_events") : response_hash.dig("event", "user_events")
+    response.select { |user_event|
       user_event["event_role"] == role }
   end
 end

@@ -26,19 +26,20 @@ RSpec.describe "Event Update", type: :request do
       end
 
       it "should have the title updated" do
-        expect(json["event"]["title"]).to eq("updated")
+        main_event.reload
+        expect(main_event.title).to eq("updated")
       end
 
       it "should have one admin" do
-        expect(fetch_by_event_role(json, "admin").count).to eql 1
+        expect(main_event.user_events.admins.count).to eql 1
       end
 
       it "should have 2 participants" do
-        expect(fetch_by_event_role(json, "participant").count).to eql 2
+        expect(main_event.user_events.participants.count).to eql 2
       end
 
       it "should have 1 co_cost" do
-        expect(fetch_by_event_role(json, "co_host").count).to eql 1
+        expect(main_event.user_events.co_hosts.count).to eql 1
       end
     end
 
@@ -53,7 +54,7 @@ RSpec.describe "Event Update", type: :request do
       end
 
       it "should add new participants" do
-        expect(fetch_by_event_role(json, "participant").count).to eql 4
+        expect(main_event.reload.user_events.participants.count).to eql 4
       end
     end
 
@@ -68,7 +69,7 @@ RSpec.describe "Event Update", type: :request do
       end
 
       it "should add new co host" do
-        expect(fetch_by_event_role(json, "co_host").count).to eql 2
+        expect(main_event.reload.user_events.co_hosts.count).to eql 2
       end
     end
 
@@ -83,7 +84,7 @@ RSpec.describe "Event Update", type: :request do
       end
 
       it "should remove user event when destroy passed" do
-        expect(fetch_by_event_role(json, "participant").count).to eql 1
+        expect(main_event.reload.user_events.participants.count).to eql 1
       end
     end
 
@@ -97,8 +98,8 @@ RSpec.describe "Event Update", type: :request do
           headers: valid_headers
       end
 
-      it "should removeco_host when destroy passed" do
-        expect(fetch_by_event_role(json, "co_host").count).to eql 0
+      it "should remove co_host when destroy passed" do
+        expect(main_event.reload.user_events.co_hosts.count).to eql 0
       end
     end
   end
