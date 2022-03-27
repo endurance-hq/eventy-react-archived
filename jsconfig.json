@@ -1,12 +1,16 @@
 {
   "compilerOptions": {
-      "baseUrl": "./app/javascript",
-      "paths": {
-          "src/*": ["src/*"],
-          "components/*": ["src/components/*"],
-          "reducers/*": ["src/reducers/*"],
-          "contexts/*": ["src/contexts/*"],
-          "commons/*": ["src/commons/*"]
-      }
-  }
+    "baseUrl": "./app/javascript",
+    "paths": {
+      "src/*": ["src/*"],
+      "components/*": ["src/components/*"],
+      "reducers/*": ["src/reducers/*"],
+      "contexts/*": ["src/contexts/*"],
+      "commons/*": ["src/commons/*"],
+      "chakraui": ["@chakra-ui/react"],
+      "chakraicons": ["@chakra-ui/icons"]
+    }
+  },
+  "exclude": ["**/node_modules", "**/.*/"],
+  "include": ["./**/*.js", "./**/*.jsx"]
 }

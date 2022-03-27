@@ -20,8 +20,13 @@
   "name": "app",
   "private": "true",
   "dependencies": {
+    "@chakra-ui/icons": "^1.1.7",
+    "@chakra-ui/react": "^1.8.6",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
     "autoprefixer": "^10.4.4",
     "esbuild": "^0.14.27",
+    "framer-motion": "^6",
     "js-logger": "^1.6.1",
     "postcss": "^8.4.12",
     "prop-types": "^15.8.1",
