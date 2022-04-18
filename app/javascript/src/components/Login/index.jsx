@@ -2,20 +2,27 @@ import React from "react";
 
 import { Box, Button, Input, Stack } from "@chakra-ui/react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
+import { useNavigate } from "react-router-dom";
+import { useUserDispatch } from "src/contexts/user";
 
 import { login } from "apis/authentication";
+import { DASHBOARD_PATH } from "components/routeConstants";
 import { useAuthDispatch } from "contexts/auth";
 
 import { LOGIN_INTIAL_VALUES } from "./constants";
 import { VALIDATION_SCHEMA } from "./validationSchema";
 
 const Login = () => {
+  const navigate = useNavigate();
   const authDispatch = useAuthDispatch();
+  const userDispath = useUserDispatch();
   const handleSubmit = async values => {
     const {
       data: { user },
     } = await login(values);
     authDispatch({ type: "LOGIN", payload: user });
+    userDispath({ type: "SET_USER", payload: { user } });
+    navigate(DASHBOARD_PATH);
   };
 
   return (

@@ -15,6 +15,8 @@ import {
 import { useAuthDispatch } from "contexts/auth";
 import { useUserDispatch } from "contexts/user";
 
+import WithoutAuth from "./common/WithoutAuth";
+
 const Main = props => {
   const [loading, setLoading] = useState(true);
   const userDispatch = useUserDispatch();
@@ -40,7 +42,15 @@ const Main = props => {
       <BrowserRouter>
         <Routes>
           {AUTH_ROUTES.map(({ path, component: Component }) => (
-            <Route key={path} path={path} element={<Component />} />
+            <Route
+              key={path}
+              path={path}
+              element={
+                <WithoutAuth redirectTo={DASHBOARD_PATH}>
+                  <Component />
+                </WithoutAuth>
+              }
+            />
           ))}
           {PRIVATE_ROUTES.map(({ path, component: Component }) => (
             <Route
