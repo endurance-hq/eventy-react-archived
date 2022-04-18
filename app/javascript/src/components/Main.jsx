@@ -1,5 +1,63 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-const Main = () => <div>Main</div>;
+import { Box, Skeleton } from "@chakra-ui/react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
+import { registerIntercepts, setAuthHeaders } from "apis/axios";
+import { initializeLogger } from "commons/logger";
+import RequireAuth from "components/common/RequireAuth";
+import {
+  AUTH_ROUTES,
+  PRIVATE_ROUTES,
+  LOGIN_PATH,
+  DASHBOARD_PATH,
+} from "components/routeConstants";
+import { useAuthDispatch } from "contexts/auth";
+import { useUserDispatch } from "contexts/user";
+
+const Main = props => {
+  const [loading, setLoading] = useState(true);
+  const userDispatch = useUserDispatch();
+  const authDispatch = useAuthDispatch();
+
+  useEffect(() => {
+    userDispatch({ type: "SET_USER", payload: { user: props?.user } });
+    initializeLogger();
+    registerIntercepts(authDispatch);
+    setAuthHeaders(setLoading);
+  }, [authDispatch, props?.user, userDispatch]);
+
+  if (loading) {
+    return (
+      <Box w="100%">
+        <Skeleton height="100vh" />
+      </Box>
+    );
+  }
+
+  return (
+    <Box w="100%" h="100vh">
+      <BrowserRouter>
+        <Routes>
+          {AUTH_ROUTES.map(({ path, component: Component }) => (
+            <Route key={path} path={path} element={<Component />} />
+          ))}
+          {PRIVATE_ROUTES.map(({ path, component: Component }) => (
+            <Route
+              key={path}
+              path={path}
+              element={
+                <RequireAuth redirectTo={LOGIN_PATH}>
+                  <Component />
+                </RequireAuth>
+              }
+            />
+          ))}
+          <Route path="*" element={<Navigate to={DASHBOARD_PATH} replace />} />
+        </Routes>
+      </BrowserRouter>
+    </Box>
+  );
+};
 
 export default Main;

@@ -1,5 +1,13 @@
 {
   "compilerOptions": {
+    "target": "es2020",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "lib": ["esnext", "dom"],
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "checkJs": true,
+    "jsx": "preserve",
     "baseUrl": "./app/javascript",
     "paths": {
       "src/*": ["src/*"],
@@ -7,6 +15,7 @@
       "reducers/*": ["src/reducers/*"],
       "contexts/*": ["src/contexts/*"],
       "commons/*": ["src/commons/*"],
+      "apis/*": ["src/apis/*"],
       "chakraui": ["@chakra-ui/react"],
       "chakraicons": ["@chakra-ui/icons"]
     }
