@@ -1,6 +1,6 @@
-FROM ruby:3.0.0-alpine
+FROM ruby:3.1.2-alpine
 
-ENV BUNDLE_VERSION 2.2.25
+ENV BUNDLE_VERSION 2.3.11
 ENV BUNDLE_PATH /usr/local/bundle/gems
 ENV RAILS_PORT 3000
 

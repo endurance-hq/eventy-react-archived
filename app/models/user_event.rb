@@ -12,7 +12,7 @@ class UserEvent < ApplicationRecord
   scope :admins, -> { where(event_role: "admin") }
   scope :participants, -> { where(event_role: "participant") }
   scope :co_hosts, -> { where(event_role: "co_host") }
-  scope :for_user, ->(user_id) { where(user_id: user_id) }
+  scope :for_user, ->(user_id) { where(user_id:) }
   scope :order_by_priority, -> { order(arel_table[:priority].desc.nulls_last) }
   scope :priority_greater_than, ->(priority) { where(arel_table[:priority].gt(priority)) }
 
@@ -36,7 +36,7 @@ class UserEvent < ApplicationRecord
   end
 
   def associated_user_events
-    UserEvent.for_user(user_id).where.not(id: id)
+    UserEvent.for_user(user_id).where.not(id:)
   end
 
   def last_priority
