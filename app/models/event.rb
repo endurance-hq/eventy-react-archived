@@ -17,12 +17,12 @@ class Event < CircleScopedRecord
   # FIXME: check uniqueness with scope in nested params
   accepts_nested_attributes_for :user_events, allow_destroy: true
 
-  scope :for_user, lambda { |user_id| joins(:user_events).where(user_events: { user_id: user_id }) }
+  scope :for_user, lambda { |user_id| joins(:user_events).where(user_events: { user_id: }) }
   scope :active, -> { where(arel_table[:start_time].gteq(Time.zone.today)) }
 
   def self.order_by_user_priority(user_id)
     joins(:user_events)
-      .where(user_events: { user_id: user_id })
+      .where(user_events: { user_id: })
       .order(UserEvent.arel_table[:priority].asc.nulls_first, arel_table[:start_time].asc)
   end
 

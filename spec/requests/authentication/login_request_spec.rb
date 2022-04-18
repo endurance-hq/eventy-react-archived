@@ -29,7 +29,7 @@ RSpec.describe "Authentication", type: :request do
     end
 
     context "when request is valid" do
-      before { post "/api/v1/login", params: valid_credentials, headers: headers }
+      before { post "/api/v1/login", params: valid_credentials, headers: }
 
       it "returns an authentication token" do
         expect(auth_response_without_token).not_to be_nil
