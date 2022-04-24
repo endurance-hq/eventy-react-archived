@@ -16,6 +16,7 @@ const Login = () => {
   const navigate = useNavigate();
   const authDispatch = useAuthDispatch();
   const userDispath = useUserDispatch();
+
   const handleSubmit = async values => {
     const {
       data: { user },
@@ -36,12 +37,12 @@ const Login = () => {
           {() => (
             <Form>
               <Stack spacing={3}>
-                <Field name="user_name">
+                <Field name="email">
                   {({ field }) => (
-                    <Input placeholder="User name" size="sm" {...field} />
+                    <Input placeholder="Email" size="sm" {...field} />
                   )}
                 </Field>
-                <ErrorMessage name="user_name" component="span" />
+                <ErrorMessage name="email" component="span" />
                 <Field name="password">
                   {({ field }) => (
                     <Input placeholder="password" size="sm" {...field} />
