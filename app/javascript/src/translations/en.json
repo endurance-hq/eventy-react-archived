@@ -1,0 +1,19 @@
+{
+  "authentication": {
+    "login": "Login",
+    "signup": "Sign Up",
+    "form": {
+      "labels": {
+        "email": "Email",
+        "password": "Password",
+        "passwordConfirmation": "Password Confirmation"
+      },
+      "placeholder": {
+        "email": "Email",
+        "password": "Password",
+        "passwordConfirmation": "Password Confirmation"
+      },
+      "forgotPassword": "Forgot Password?"
+    }
+  }
+}

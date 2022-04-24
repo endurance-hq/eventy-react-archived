@@ -16,6 +16,7 @@ const authReducer = (_state, { type, payload }) => {
     case "LOGOUT": {
       localStorage.setItem("authToken", JSON.stringify(null));
       localStorage.setItem("userName", JSON.stringify(null));
+      localStorage.setItem("user", JSON.stringify(null));
       resetAuthTokens();
 
       return { isLoggedIn: false, authToken: null, userName: null };

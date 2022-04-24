@@ -7,14 +7,15 @@ import { registerIntercepts, setAuthHeaders } from "apis/axios";
 import { initializeLogger } from "commons/logger";
 import RequireAuth from "components/common/RequireAuth";
 import {
-  AUTH_ROUTES,
   PRIVATE_ROUTES,
-  LOGIN_PATH,
   DASHBOARD_PATH,
+  AUTHENTICATION_PATH,
+  AUTH_ROUTES,
 } from "components/routeConstants";
 import { useAuthDispatch } from "contexts/auth";
 import { useUserDispatch } from "contexts/user";
 
+import Authentication from "./Authentication";
 import WithoutAuth from "./common/WithoutAuth";
 
 const Main = props => {
@@ -23,7 +24,6 @@ const Main = props => {
   const authDispatch = useAuthDispatch();
 
   useEffect(() => {
-    userDispatch({ type: "SET_USER", payload: { user: props?.user } });
     initializeLogger();
     registerIntercepts(authDispatch);
     setAuthHeaders(setLoading);
@@ -41,23 +41,33 @@ const Main = props => {
     <Box w="100%" h="100vh">
       <BrowserRouter>
         <Routes>
-          {AUTH_ROUTES.map(({ path, component: Component }) => (
+          <Route path={AUTHENTICATION_PATH.INDEX} element={<Authentication />}>
             <Route
-              key={path}
-              path={path}
-              element={
-                <WithoutAuth redirectTo={DASHBOARD_PATH}>
-                  <Component />
-                </WithoutAuth>
-              }
+              index
+              element={<Navigate to={AUTHENTICATION_PATH.LOGIN} replace />}
             />
-          ))}
+            {AUTH_ROUTES.map(({ path, component: Component }) => (
+              <Route
+                key={path}
+                path={path}
+                element={
+                  <WithoutAuth redirectTo={DASHBOARD_PATH}>
+                    <Component />
+                  </WithoutAuth>
+                }
+              />
+            ))}
+            <Route
+              path="*"
+              element={<Navigate to={AUTHENTICATION_PATH.LOGIN} replace />}
+            />
+          </Route>
           {PRIVATE_ROUTES.map(({ path, component: Component }) => (
             <Route
               key={path}
               path={path}
               element={
-                <RequireAuth redirectTo={LOGIN_PATH}>
+                <RequireAuth redirectTo={AUTHENTICATION_PATH.INDEX}>
                   <Component />
                 </RequireAuth>
               }

@@ -10,7 +10,7 @@
     "jsx": "preserve",
     "baseUrl": "./app/javascript",
     "paths": {
-      "src/*": ["src/*"],
+      "src/*.{js,jsx}": ["src/*.{js,jsx}"],
       "components/*": ["src/components/*"],
       "reducers/*": ["src/reducers/*"],
       "contexts/*": ["src/contexts/*"],
@@ -21,6 +21,7 @@
       "images/*": [
         "../assets/images/*"
       ],
+      "root/*": ["../../*"]
     }
   },
   "exclude": ["**/node_modules", "**/.*/"],
