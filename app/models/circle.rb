@@ -3,7 +3,7 @@
 class Circle < ApplicationRecord
   belongs_to :head, class_name: "User", foreign_key: "head_id"
 
-  before_create :assign_circle_head
+  before_validation :assign_circle_head, on: :create
 
   validates :name, presence: true
   validates :description, presence: true

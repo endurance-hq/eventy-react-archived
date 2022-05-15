@@ -34,7 +34,8 @@ To start application without `foreman`
 bundle exec rails server
 ```
 
-Visit http://localhost:3000
+Visit http://localhost:3000 and login with email `elon@example.com` and password
+`eventy`
 
 ## Docker instructions
 
