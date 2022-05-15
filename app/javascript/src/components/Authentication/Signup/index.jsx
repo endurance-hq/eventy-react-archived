@@ -17,6 +17,7 @@ import { VALIDATION_SCHEMA } from "./validationSchema";
 const Signup = () => {
   const { t } = useTranslation();
 
+  // Add signup logic here
   const handleSubmit = () => {};
 
   return (
@@ -99,7 +100,6 @@ const Signup = () => {
                 </FormControl>
               )}
             </Field>
-
             <Button colorScheme="indigo" size="md" type="submit">
               {t("authentication.signup")}
             </Button>
