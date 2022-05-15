@@ -33,6 +33,7 @@
     "js-logger": "^1.6.1",
     "postcss": "^8.4.12",
     "prop-types": "^15.8.1",
+    "ramda": "^0.28.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-i18next": "^11.16.7",
