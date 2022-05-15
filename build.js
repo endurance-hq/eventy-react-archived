@@ -19,5 +19,8 @@ const options = {
 };
 
 build(options)
-  .then(() => console.log("⚡ Done"))
+  .then(() => {
+    console.log("⚡ Done");
+    if (process.env.RAILS_ENV === "production") process.exit(0);
+  })
   .catch(() => process.exit(1));
