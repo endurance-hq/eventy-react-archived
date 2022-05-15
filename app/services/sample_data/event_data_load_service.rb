@@ -43,7 +43,7 @@ module SampleData
     end
 
     def user_ids
-      @_user_ids = User.pluck(:id).shuffle
+      @_user_ids ||= User.pluck(:id).shuffle
     end
 
     def user_event_data

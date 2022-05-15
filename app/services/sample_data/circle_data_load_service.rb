@@ -26,11 +26,11 @@ module SampleData
       end
 
       def users
-        @_users = User.all
+        @_users ||= User.all
       end
 
       def user_ids
-        @_user_ids = users.pluck(:id).shuffle
+        @_user_ids ||= users.pluck(:id).shuffle
       end
   end
 end
