@@ -35,10 +35,12 @@ gem "jwt"
 # serializer
 gem "blueprinter"
 
+# Generate fake data
+gem "faker"
+
 group :development, :test do
   gem "bullet"
   gem "dotenv-rails"
-  gem "faker"
   gem "rspec-rails"
 end
 
