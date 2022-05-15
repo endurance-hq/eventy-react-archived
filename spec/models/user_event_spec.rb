@@ -18,14 +18,14 @@ RSpec.describe UserEvent, type: :model do
   context "validate scopes" do
     let(:main_event) { create(:event_with_recipients_and_co_hosts, users_count: 2, co_hosts_count: 1) }
 
-    it "should return partcipants when participants called" do
-      expect(main_event.user_events.participants.count).to eql 2
+    it "should return partcipants when participant called" do
+      expect(main_event.user_events.participant.count).to eql 2
     end
-    it "should return admins when admins called" do
-      expect(main_event.user_events.admins.count).to eql 1
+    it "should return admins when admin called" do
+      expect(main_event.user_events.admin.count).to eql 1
     end
-    it "should return co_hosts when co_hosts called" do
-      expect(main_event.user_events.co_hosts.count).to eql 1
+    it "should return co_hosts when co_host called" do
+      expect(main_event.user_events.co_host.count).to eql 1
     end
   end
 
