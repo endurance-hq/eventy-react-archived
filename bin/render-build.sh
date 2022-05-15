@@ -3,8 +3,7 @@
 set -o errexit
 
 bundle install
-
-bin/yarn
-
+cp config/database.yml.postgresql config/database.yml
 bundle exec rake assets:precompile
+bundle exec rake assets:clean
 bundle exec rake db:migrate
