@@ -37,7 +37,7 @@ module SampleData
     end
 
     def add_co_host_to_any_event!
-      user_event = UserEvent.participants.sample
+      user_event = UserEvent.participant.sample
       user_event.event_role = "co_host"
       user_event.save!
     end
