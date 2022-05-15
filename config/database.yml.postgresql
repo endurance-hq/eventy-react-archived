@@ -15,4 +15,4 @@ test:
 
 production:
   <<: *default
-  database: <%= "eventy_production" %>
+  url: <%= ENV['DATABASE_URL'] %>

@@ -1,0 +1,20 @@
+previewsEnabled: true
+
+databases:
+  - name: eventy_db
+    databaseName: eventy_db
+    user: eventy_user
+
+services:
+  - type: web
+    name: eventy_web
+    env: ruby
+    buildCommand: "./bin/render.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: eventy_db
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
