@@ -1,7 +1,9 @@
 module.exports = {
   apis: "src/apis",
-  common: "src/common",
+  commons: "src/commons",
   components: "src/components",
   contexts: "src/contexts",
   images: "images",
+  chakraui: "@chakra-ui/react",
+  chakraicons: "@chakra-ui/icons",
 };

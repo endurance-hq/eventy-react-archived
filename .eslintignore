@@ -1,0 +1,10 @@
+public
+coverage
+db
+log
+.scripts
+.github
+test
+tmp
+.vscode
+babel.config.js

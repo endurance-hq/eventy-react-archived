@@ -36,6 +36,9 @@ const buildPathGroupsBasedOnEsbuildAliases = ({
         : "/**";
 
     let group = "internal";
+    if (["chakraui", "chakraicons"].includes(name)) {
+      group = "external";
+    }
 
     return { pattern: `${name}${wildCard}`, group };
   });

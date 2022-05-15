@@ -1,14 +1,19 @@
-import React from "react";
+import React, { createContext, useContext, useReducer } from "react";
 
 import PropTypes from "prop-types";
 import userReducer from "reducers/user";
 
-const UserStateContext = React.createContext();
-const UserDispatchContext = React.createContext();
-const initialState = { user: null };
+import { getFromLocalStorage } from "commons/utils";
+
+const UserStateContext = createContext();
+const UserDispatchContext = createContext();
+
+const user = getFromLocalStorage("user");
+
+const initialState = { user: user || null };
 
 const UserProvider = ({ children }) => {
-  const [state, dispatch] = React.useReducer(userReducer, initialState);
+  const [state, dispatch] = useReducer(userReducer, initialState);
 
   return (
     <UserStateContext.Provider value={state}>
@@ -20,7 +25,7 @@ const UserProvider = ({ children }) => {
 };
 
 const useUserState = () => {
-  const context = React.useContext(UserStateContext);
+  const context = useContext(UserStateContext);
 
   if (context === undefined) {
     throw new Error("useUserState must be used within a UserProvider");
@@ -30,7 +35,7 @@ const useUserState = () => {
 };
 
 const useUserDispatch = () => {
-  const context = React.useContext(UserDispatchContext);
+  const context = useContext(UserDispatchContext);
 
   if (context === undefined) {
     throw new Error("useUserDispatch must be used within a UserProvider");

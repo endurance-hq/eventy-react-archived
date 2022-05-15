@@ -1,12 +1,29 @@
 {
   "compilerOptions": {
-      "baseUrl": "./app/javascript",
-      "paths": {
-          "src/*": ["src/*"],
-          "components/*": ["src/components/*"],
-          "reducers/*": ["src/reducers/*"],
-          "contexts/*": ["src/contexts/*"],
-          "commons/*": ["src/commons/*"]
-      }
-  }
+    "target": "es2020",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "lib": ["esnext", "dom"],
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "checkJs": true,
+    "jsx": "preserve",
+    "baseUrl": "./app/javascript",
+    "paths": {
+      "src/*.{js,jsx}": ["src/*.{js,jsx}"],
+      "components/*": ["src/components/*"],
+      "reducers/*": ["src/reducers/*"],
+      "contexts/*": ["src/contexts/*"],
+      "commons/*": ["src/commons/*"],
+      "apis/*": ["src/apis/*"],
+      "chakraui": ["@chakra-ui/react"],
+      "chakraicons": ["@chakra-ui/icons"],
+      "images/*": [
+        "../assets/images/*"
+      ],
+      "root/*": ["../../*"]
+    }
+  },
+  "exclude": ["**/node_modules", "**/.*/"],
+  "include": ["./**/*.js", "./**/*.jsx"]
 }

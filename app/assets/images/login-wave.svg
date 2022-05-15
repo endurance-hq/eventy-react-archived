@@ -1,0 +1,17 @@
+<svg
+  id="visual"
+  viewBox="0 0 384 600"
+  width="384"
+  height="600"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  version="1.1"
+>
+  <rect x="0" y="0" width="384" height="600" fill="#fff"></rect>
+  <path
+    d="M0 121L16 124C32 127 64 133 96 141C128 149 160 159 192 157.2C224 155.3 256 141.7 288 140.7C320 139.7 352 151.3 368 157.2L384 163L384 0L368 0C352 0 320 0 288 0C256 0 224 0 192 0C160 0 128 0 96 0C64 0 32 0 16 0L0 0Z"
+    fill="#F2F5FA"
+    stroke-linecap="round"
+    stroke-linejoin="miter"
+  ></path>
+</svg>

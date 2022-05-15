@@ -1,22 +1,24 @@
-import React from "react";
+import React, { createContext, useContext, useReducer } from "react";
 
 import PropTypes from "prop-types";
 import authReducer from "reducers/auth";
 
-const AuthStateContext = React.createContext();
-const AuthDispatchContext = React.createContext();
+import { getFromLocalStorage } from "commons/utils";
 
-const token = JSON.parse(localStorage.getItem("authToken"));
-const email = JSON.parse(localStorage.getItem("authEmail"));
+const AuthStateContext = createContext();
+const AuthDispatchContext = createContext();
+
+const token = getFromLocalStorage("authToken");
+const userName = getFromLocalStorage("userName");
 
 const initialState = {
   isLoggedIn: !!token,
   authToken: token || null,
-  authEmail: email || null,
+  userName: userName || null,
 };
 
 const AuthProvider = ({ children }) => {
-  const [state, dispatch] = React.useReducer(authReducer, initialState);
+  const [state, dispatch] = useReducer(authReducer, initialState);
 
   return (
     <AuthStateContext.Provider value={state}>
@@ -28,7 +30,7 @@ const AuthProvider = ({ children }) => {
 };
 
 const useAuthState = () => {
-  const context = React.useContext(AuthStateContext);
+  const context = useContext(AuthStateContext);
 
   if (context === undefined) {
     throw new Error("useAuthState must be used within a AuthProvider");
@@ -38,7 +40,7 @@ const useAuthState = () => {
 };
 
 const useAuthDispatch = () => {
-  const context = React.useContext(AuthDispatchContext);
+  const context = useContext(AuthDispatchContext);
 
   if (context === undefined) {
     throw new Error("useAuthDispatch must be used within a AuthProvider");

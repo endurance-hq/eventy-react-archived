@@ -24,7 +24,7 @@ module ApiRescuable
 
     def handle_record_not_found(exception)
       log_error(exception)
-      respond_with_error status: :not_found, message: t("error.record_not_found", model_name: error.model)
+      respond_with_error status: :not_found, message: t("error.record_not_found", model_name: exception.model)
     end
 
     def handle_api_error(exception)
