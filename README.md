@@ -1,3 +1,5 @@
+[![Linters & Rspec](https://github.com/eventy-core/eventy/actions/workflows/actions.yml/badge.svg)](https://github.com/eventy-core/eventy/actions/workflows/actions.yml)
+
 # EVENTY
 
 A place to host and manage events
