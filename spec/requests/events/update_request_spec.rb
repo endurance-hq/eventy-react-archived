@@ -7,9 +7,9 @@ RSpec.describe "Event Update", type: :request do
   let(:event) { create(:event, title: "hello") }
   let(:main_event) { create(:event_with_recipients_and_co_hosts, users_count: 2, co_hosts_count: 1) }
   let(:remove_participant) {
-    { _destroy: true }.merge(main_event.user_events.participants.first.attributes) }
+    { _destroy: true }.merge(main_event.user_events.participant.first.attributes) }
   let(:remove_co_host) {
-    { _destroy: true }.merge(main_event.user_events.co_hosts.first.attributes) }
+    { _destroy: true }.merge(main_event.user_events.co_host.first.attributes) }
   let(:add_partcipants) { makes_user_event_id_hash(2) }
   let(:add_co_hosts) { makes_user_event_id_hash(1, "co_host") }
 
@@ -31,15 +31,15 @@ RSpec.describe "Event Update", type: :request do
       end
 
       it "should have one admin" do
-        expect(main_event.user_events.admins.count).to eql 1
+        expect(main_event.user_events.admin.count).to eql 1
       end
 
       it "should have 2 participants" do
-        expect(main_event.user_events.participants.count).to eql 2
+        expect(main_event.user_events.participant.count).to eql 2
       end
 
       it "should have 1 co_cost" do
-        expect(main_event.user_events.co_hosts.count).to eql 1
+        expect(main_event.user_events.co_host.count).to eql 1
       end
     end
 
@@ -54,7 +54,7 @@ RSpec.describe "Event Update", type: :request do
       end
 
       it "should add new participants" do
-        expect(main_event.reload.user_events.participants.count).to eql 4
+        expect(main_event.reload.user_events.participant.count).to eql 4
       end
     end
 
@@ -69,7 +69,7 @@ RSpec.describe "Event Update", type: :request do
       end
 
       it "should add new co host" do
-        expect(main_event.reload.user_events.co_hosts.count).to eql 2
+        expect(main_event.reload.user_events.co_host.count).to eql 2
       end
     end
 
@@ -84,7 +84,7 @@ RSpec.describe "Event Update", type: :request do
       end
 
       it "should remove user event when destroy passed" do
-        expect(main_event.reload.user_events.participants.count).to eql 1
+        expect(main_event.reload.user_events.participant.count).to eql 1
       end
     end
 
@@ -99,7 +99,7 @@ RSpec.describe "Event Update", type: :request do
       end
 
       it "should remove co_host when destroy passed" do
-        expect(main_event.reload.user_events.co_hosts.count).to eql 0
+        expect(main_event.reload.user_events.co_host.count).to eql 0
       end
     end
   end

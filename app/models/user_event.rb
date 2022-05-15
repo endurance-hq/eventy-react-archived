@@ -9,9 +9,6 @@ class UserEvent < ApplicationRecord
   validates :user_id, presence: true, uniqueness: { scope: :event_id }
   validates :priority, uniqueness: { scope: :user_id, allow_blank: true }
 
-  scope :admins, -> { where(event_role: "admin") }
-  scope :participants, -> { where(event_role: "participant") }
-  scope :co_hosts, -> { where(event_role: "co_host") }
   scope :for_user, ->(user_id) { where(user_id:) }
   scope :order_by_priority, -> { order(arel_table[:priority].desc.nulls_last) }
   scope :priority_greater_than, ->(priority) { where(arel_table[:priority].gt(priority)) }
