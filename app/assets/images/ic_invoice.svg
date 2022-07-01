@@ -1,0 +1,8 @@
+<svg id="ic_invoice" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <path id="Path_378" data-name="Path 378" d="M0,0H24V24H0Z" fill="none"/>
+  <path id="Path_379" data-name="Path 379" d="M14,3V7a1,1,0,0,0,1,1h4" fill="none" stroke="#7e84a3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+  <path id="Path_380" data-name="Path 380" d="M17,21H7a2,2,0,0,1-2-2V5A2,2,0,0,1,7,3h7l5,5V19A2,2,0,0,1,17,21Z" fill="none" stroke="#7e84a3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+  <line id="Line_12" data-name="Line 12" x2="1" transform="translate(9 7)" fill="none" stroke="#7e84a3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+  <line id="Line_13" data-name="Line 13" x2="6" transform="translate(9 13)" fill="none" stroke="#7e84a3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+  <line id="Line_14" data-name="Line 14" x2="2" transform="translate(13 17)" fill="none" stroke="#7e84a3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+</svg>

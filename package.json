@@ -26,6 +26,7 @@
     "@emotion/styled": "^11",
     "autoprefixer": "^10.4.4",
     "axios": "^0.26.1",
+    "classnames": "^2.3.1",
     "esbuild": "^0.14.27",
     "formik": "^2.2.9",
     "framer-motion": "^6",
