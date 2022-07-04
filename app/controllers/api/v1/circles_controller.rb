@@ -22,19 +22,19 @@ module Api
         circle = Circle.new(circle_params)
 
         circle.save!
-        respond_with_success message: t("succesfully_created", entity: "Circle"), status: :created
+        respond_with_success message: t("successfully_created", entity: "Circle"), status: :created
       end
 
       # PATCH/PUT /circles/1
       def update
         @circle.update!(circle_params)
-        respond_with_success message: t("succesfully_updated", entity: "Circle")
+        respond_with_success message: t("successfully_updated", entity: "Circle")
       end
 
       # DELETE /circles/1
       def destroy
         @circle.destroy!
-        respond_with_success message: t("succesfully_deleted", entity: "Circle")
+        respond_with_success message: t("successfully_deleted", entity: "Circle")
       end
 
       private
