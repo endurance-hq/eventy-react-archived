@@ -21,14 +21,14 @@ import {
 } from "@chakra-ui/react";
 
 import { logout } from "apis/authentication";
-import { useAuthDispatch } from "contexts/auth";
-import { useUserState } from "contexts/user";
+import { useAuthDispatch, useAuthState } from "contexts/auth";
 import IcBell from "images/ic_bell.svg";
 import IcUsers from "images/ic_users.svg";
 
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { user } = useUserState();
+  const { userName } = useAuthState();
+
   const authDispatch = useAuthDispatch();
 
   const handleLogout = async () => {
@@ -100,7 +100,7 @@ const Navbar = () => {
             >
               <Flex alignItems={"center"} justifyContent={"space-between"}>
                 <Avatar size={"sm"} />
-                <Text ml={2}>{user.user_name}</Text>
+                <Text ml={2}>{userName}</Text>
               </Flex>
             </MenuButton>
             <MenuList>
