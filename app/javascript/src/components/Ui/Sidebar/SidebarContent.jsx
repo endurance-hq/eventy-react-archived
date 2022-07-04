@@ -12,6 +12,7 @@ const SidebarContent = ({ navItems = [], ...rest }) => (
     w={{ base: "full", md: 60 }}
     pos="fixed"
     h="full"
+    mt={16}
     {...rest}
   >
     <div className="mt-4">
