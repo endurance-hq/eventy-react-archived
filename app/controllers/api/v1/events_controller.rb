@@ -12,7 +12,7 @@ module Api
       def create
         event = Event.new(event_params)
         event.save!
-        respond_with_success message: t("succesfully_created", entity: "Event"), status: :created
+        respond_with_success message: t("successfully_created", entity: "Event"), status: :created
       end
 
       def edit
@@ -25,7 +25,7 @@ module Api
 
       def update
         @event.update!(event_params)
-        respond_with_success message: t("succesfully_updated", entity: "Event")
+        respond_with_success message: t("successfully_updated", entity: "Event")
       end
 
       def toggle_pin

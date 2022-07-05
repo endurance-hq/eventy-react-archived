@@ -27,7 +27,7 @@ RSpec.describe "Events Create", type: :request do
         end
 
         it "should create an event" do
-          expect(json["notice"]).to eq(t("succesfully_created", entity: "Event"))
+          expect(json["notice"]).to eq(t("successfully_created", entity: "Event"))
         end
 
         it "should return status code" do

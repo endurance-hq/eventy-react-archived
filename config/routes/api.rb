@@ -3,6 +3,7 @@
 namespace :api, defaults: { format: :json } do
   namespace :v1 do
     post "login", to: "authentication#create"
+    delete "logout", to: "authentication#destroy"
     post "register", to: "users#create"
 
     resources :events do

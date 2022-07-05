@@ -12,16 +12,18 @@ import {
   AUTHENTICATION_PATH,
   AUTH_ROUTES,
 } from "components/routeConstants";
-import { useAuthDispatch } from "contexts/auth";
+import { useAuthDispatch, useAuthState } from "contexts/auth";
 import { useUserDispatch } from "contexts/user";
 
 import Authentication from "./Authentication";
+import Navbar from "./common/Navbar";
 import WithoutAuth from "./common/WithoutAuth";
 
 const Main = props => {
   const [loading, setLoading] = useState(true);
   const userDispatch = useUserDispatch();
   const authDispatch = useAuthDispatch();
+  const { isLoggedIn } = useAuthState();
 
   useEffect(() => {
     initializeLogger();
@@ -39,6 +41,7 @@ const Main = props => {
 
   return (
     <Box w="100%" h="100vh">
+      {isLoggedIn && <Navbar />}
       <BrowserRouter>
         <Routes>
           <Route path={AUTHENTICATION_PATH.INDEX} element={<Authentication />}>
