@@ -9,6 +9,7 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
+import { useMutation } from "@tanstack/react-query";
 import { Field, Form, Formik } from "formik";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
@@ -27,20 +28,21 @@ const Login = () => {
   const authDispatch = useAuthDispatch();
   const userDispath = useUserDispatch();
 
-  const handleSubmit = async values => {
-    const {
-      data: { user },
-    } = await login(values);
+  const loginSuccessHandler = ({ data: { user } }) => {
     authDispatch({ type: "LOGIN", payload: user });
     userDispath({ type: "SET_USER", payload: { user } });
     navigate(DASHBOARD_PATH);
   };
 
+  const loginMutation = useMutation(login, {
+    onSuccess: loginSuccessHandler,
+  });
+
   return (
     <Formik
       initialValues={LOGIN_INTIAL_VALUES}
       validationSchema={VALIDATION_SCHEMA}
-      onSubmit={handleSubmit}
+      onSubmit={loginMutation.mutate}
     >
       {() => (
         <Form>
